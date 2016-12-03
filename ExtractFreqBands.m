@@ -73,7 +73,7 @@ for count = 1:size(I,3)
     end
 
     % Reconstruct Image
-    IF = mat2gray(abs(ifft2(ifftshift(F))));
+    IF(:,:,count) = mat2gray(abs(ifft2(ifftshift(F))));
 end
 
 end
