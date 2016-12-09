@@ -25,7 +25,7 @@ if(nargin<2)
    Wts = [1/3, 1/3, 1/3]; 
 end
 
-if(sum(Wts)~=1)
+if(abs(sum(Wts)-1) > 1e-10)
    Wts = Wts./sum(Wts);
    warning(['Weights did not sum to 1, hence they have been normalized and the new weights are: ',num2str(Wts)]);
 end

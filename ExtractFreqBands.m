@@ -5,15 +5,15 @@ function IF = ExtractFreqBands(I, EllipseAxes, InvertFlag)
 % EllipseAxes: Frequencies are extracted as blurred ellipses on the
 % FFT spectrum, if you want difference between 2 frequencies, EllipseAxes
 % will be of size 2x2, first row corresponds to inner ellipse and second
-% row corresponds to outer ellipse
+% row corresponds to outer ellipse (col,row) or (x,y)
 % InvertFlag: If 1 extracts frequencies not included by the mask defined by
 % EllipseAxes, 0 by default 
 % Output:
 % IF: Image with required frequency bands
 % Sample Usage:
 % I = imread('ferrari.jpg');
-% EllipseAxes [10, 10];
-% IF = ExtractFreqBands(INow, EllipseAxes);
+% EllipseAxes = [10, 10];
+% IF = ExtractFreqBands(I, EllipseAxes);
 % Code modified by: Nitin J. Sanket (nitinsan@terpmail.umd.edu)
 % PhD Student in Computer Science at University of Maryland, College Park
 % Dec 2016
@@ -23,7 +23,11 @@ if(nargin<3)
 end
 
 if(nargin<2)
-    EllipseAxes = [10,10]; % a is along columns ,b is along rows
+    EllipseAxes = [100,100]; % a is along columns ,b is along rows
+end
+
+if(size(EllipseAxes,1)==1)
+   EllipseAxes = [EllipseAxes; [ceil(size(I,2)/2), ceil(size(I,1)/2)]]; 
 end
 
 if(EllipseAxes(1,1)>ceil(size(I(:,:,1),2)/2))
